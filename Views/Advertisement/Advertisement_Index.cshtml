@@ -1,0 +1,114 @@
+﻿@using Asp_MVC.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<Advertisement>
+@{
+    ViewData["Title"] = "Advertisement Index";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Demo Asp MVC</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    @await Html.PartialAsync("Navigation")
+    <br>
+    <br>
+    <br>
+    <br>
+    <form asp-controller="Advertisement" asp-action="Index" method="get">
+        <div class="form-group">
+            <label for="searchTitle">Szukaj po tytule:</label>
+            <input type="text" id="searchTitle" name="title" class="form-control" value="@Context.Request.Query["title"]" placeholder="Wpisz tytuł...">
+        </div>
+        <button type="submit" class="btn btn-primary">Szukaj</button>
+    </form>
+    <br>
+    <br>
+
+    @if (Model == null || !Model.Any())
+    {
+        <h2 class="text-center mt-5">Brak ogłoszeń!</h2>
+        <p class="text-center mt-3">
+            <a asp-controller="Advertisement" asp-action="AddAdvertisement" class="btn btn-primary">
+                <i class="fa fa-plus"></i> Dodaj nowe ogłoszenie
+            </a>
+        </p>
+    }
+    else
+    {
+        <div class="container mt-5">
+            <h2 class="text-center">Ogłoszenia</h2>
+            <p class="text-center mt-3">
+                <a asp-controller="Advertisement" asp-action="AddAdvertisement" class="btn btn-primary">
+                    <i class="fa fa-plus"></i> Dodaj nowe ogłoszenie
+                </a>
+            </p>
+            <table class="table table-bordered table-hover table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Tytuł</th>
+                        <th>Opis</th>
+                        <th>Proponowana cena</th>
+                        <th>Czas trwania</th>
+                        <th>Data utworzenia</th>
+                        <th>Email ogłoszeniodawcy</th>
+                        <th>Numer telefonu ogłoszeniodawcy</th>
+                        <th>Edytuj</th>
+                        <th>Usuń</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var advertisement in Model)
+                    {
+                        <tr>
+                            <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@advertisement.Title</td>
+                            <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@advertisement.Description</td>
+                            <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@advertisement.Price</td>
+                            <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@advertisement.Duration</td>
+                            <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@advertisement.CreatedAt</td>
+                            <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@(advertisement.User?.Email ?? "Brak danych")</td>
+                            <td style="max-width: 200px; word-wrap: break-word; white-space: normal;">@(advertisement.User?.PhoneNumber ?? "Brak danych")</td>
+                            <td>
+                                @if (User.IsInRole("Admin") || User.Identity.Name == advertisement.User.Email)
+                                {
+                                    <a asp-controller="Advertisement" asp-action="UpdateAdvertisement" asp-route-id="@advertisement.Id" class="btn btn-warning btn-sm">
+                                        <i class="fa fa-pencil"></i> Edytuj
+                                    </a>
+                                }
+                            </td>
+                            <td>
+                                @if (User.IsInRole("Admin") || User.Identity.Name == advertisement.User.Email)
+                                {
+                                    <form asp-controller="Advertisement" asp-action="DeleteAdvertisement" asp-route-id="@advertisement.Id" method="post"
+                                          onsubmit="return confirm('Czy na pewno chcesz usunąć to ogłoszenie?');">
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash"></i> Usuń
+                                        </button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="text-center mt-3">
+                <p class="alert alert-info">Witaj Adminie.</p>
+            </div>
+        }
+    }
+    @Html.AntiForgeryToken()
+</body>
+</html>

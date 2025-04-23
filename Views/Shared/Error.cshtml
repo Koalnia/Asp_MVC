@@ -1,0 +1,30 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Demo ASP.NET Core MVC";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Demo Asp MVC</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="alert alert-danger">
+            <h4 class="alert-heading">Brak dostepu do danego zasobu, prawdopodnie związany z brakiem odpowiedniego uprawnienia lub próbą usunięcia swojego konta.</h4>
+            <hr>
+            <a class="nav-link" asp-controller="Advertisement" asp-action="Index">Wróć na stronę główną</a>
+        </div>
+    </div>
+    @Html.AntiForgeryToken()
+</body>
+</html>

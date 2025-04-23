@@ -1,0 +1,68 @@
+﻿@using Asp_MVC.Dto
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model UserRegistrationDto
+@{
+    ViewData["Title"] = "Update User";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Demo Asp MVC</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    @await Html.PartialAsync("Navigation")
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <div>
+    @if (TempData["emailInvalid"] != null)
+    {
+        <div class="alert alert-danger">
+            Ten adres email został już zarejestrowany!
+        </div>
+    }
+    
+    <form asp-controller="User" asp-action="UpdateUser" asp-route-id="@Model.Id" method="post">
+        <div class="form-group">
+            <label class="control-label" asp-for="Name">Imię i nazwisko</label>
+            <input asp-for="Name" class="form-control" required autofocus />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" asp-for="PhoneNumber">Numer telefonu</label>
+            <input asp-for="PhoneNumber" class="form-control" required autofocus />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" asp-for="Email">Adres email</label>
+            <input asp-for="Email" class="form-control" required autofocus />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" asp-for="Password">Hasło</label>
+                <input asp-for="Password" class="form-control" type="password" required autofocus />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Edytuj użytkownika</button>
+        </div>
+        </form>
+    </div>
+    @Html.AntiForgeryToken()
+</body>
+</html>

@@ -1,0 +1,87 @@
+﻿@using Asp_MVC.Dto
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model UserRegistrationDto
+@{
+    ViewData["Title"] = "Rejestracja";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Demo Asp MVC</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    @await Html.PartialAsync("Navigation")
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-info">Rejestracja ukończona pomyślnie</div>
+                }
+
+                @if (TempData["EmailInvalid"] != null)
+                {
+                    <div class="alert alert-danger">Ten adres email został już zarejestrowany!</div>
+                }
+
+                <h1>Rejestracja</h1>
+
+                <form asp-controller="Account" asp-action="Register" method="post">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Imię</label>
+                        <input asp-for="Name" class="form-control" autofocus />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber" class="control-label">Numer telefonu</label>
+                        <input asp-for="PhoneNumber" class="form-control" autofocus />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label">Email</label>
+                        <input asp-for="Email" class="form-control" type="email" placeholder="Enter a valid email" autofocus />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label">Hasło</label>
+                        <input asp-for="Password" class="form-control" type="password" autofocus />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Rejestracja</button>
+                        <span>Już zarejestrowany? <a asp-controller="Account" asp-action="Login">Zaloguj się tutaj</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>
