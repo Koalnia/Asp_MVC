@@ -1,6 +1,6 @@
 # Asp_MVC
 Aplikacja Asp_MVC, będą projektem aplikacji w architekturze MVC we frameworku Asp.Net Core oraz silniku szablonów Razor. 
-Jest to przykład wykorzystania frameoworku Asp.Net Core jako frameworku tworzenia backendu aplikacji internetowych, napisana na potrzeby pracy dyplomowej.
+Jest to przykład wykorzystania frameoworku Asp.Net Core jako frameworku tworzenia backendu aplikacji internetowych, napisany na potrzeby pracy dyplomowej.
 Backend aplikacji napisany jest w Asp.Net Core, frontend napisany jest w silniku szablonów stron HTML - Razor, a wybrana baza danych to PostgreSQL.
 Aplikacja tworzy serwis ogłoszeń, gdzie użytkownicy mogą zamieszczać ogłoszenia o chęci zakupu, sprzedaży lub darmowego oddania określonych przedmiotów lub usług. 
 Zawiera dwie klasy - klasę User opisującą użytkowników aplikacji oraz klasę Advertisement opisującą ogłoszenia aplikacji w relacji  jeden-do-wielu (ang. One-to-Many), gdzie:
