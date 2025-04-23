@@ -13,3 +13,4 @@ Administrator ma dostęp do edycji oraz usuwania wszystkich kont użytkowników 
 Aplikacja wczytuje domyślne wartości do bazy danych, zawierające trzech użytkowników administratorów, siedmiu zwykłych użytkowników oraz trzydzieści ogłoszeń. 
 Aplikacja ustawiona jest, żeby sama usuwała i generowała od nowa strukturę bazy danych oraz jej dane przy każdym  uruchomieniu. 
 W celu zarządzania pakietami projektów Asp.Net Core używa narzędzia NuGet.
+Aplikacja zawiera także testy wydajnościowe napisane w technologii k6.
